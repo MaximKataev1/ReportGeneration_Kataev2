@@ -21,13 +21,13 @@ namespace ReportGeneration_Kataev.Items
     /// </summary>
     public partial class Student : UserControl
     {
-        public Student()
+        public Student(StudentContext student)
         {
             InitializeComponent();
             TBFio.Text = $"{student.LastName} {student.FirstName}";
             CBExpelled.IsChecked = student.Expelled;
             List<DisciplineContext> StudentDisciplines = Main.AllDisciplines.FindAll(
-                x => x.Idroup == Student.IdGroup);
+                x => x.IdGroup == Student.IdGroup);
             int NecessarilyCount = 0;
             int WorkCount = 0;
             int DoneCount = 0;
@@ -60,7 +60,7 @@ namespace ReportGeneration_Kataev.Items
             }
             doneWorks.Value = (100f/(float)NecessarilyCount) * ((float)DoneCount);
             missedCount.Value = (100f / ((float)WorkCount * 90f)) * ((float)MissedCount);
-            TBGroup.Text = main.AllGroups.Find(XmlDataProvider => x.Id == student.IdGroup).Name;
+            TBGroup.Text = Main.AllGroups.Find(XmlDataProvider => x.Id == student.IdGroup).Name;
         }
     }
 }
